@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAZOR GAMING DEV - Jasa Pembuatan Web Slot & Gambling</title>
+<title>RAZOR GAMING - Jasa Pembuatan Web Slot & Gambling</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -23,6 +23,10 @@ html{scroll-behavior:smooth}
   --card-bg:rgba(0,25,55,.7);
   --card-bd:rgba(0,170,255,.25);
   --card-bd-hi:rgba(68,204,255,.7);
+  --tg:#29b6f6;
+  --tg-dark:#0288d1;
+  --wa:#25d366;
+  --wa-dark:#128c7e;
 }
 
 body{
@@ -42,11 +46,11 @@ body::before{
 }
 
 @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
-@keyframes bShimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pFloat{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:.6}90%{opacity:.6}100%{opacity:0;transform:translateY(-10vh) scale(1)}}
-@keyframes shineSweep{0%{left:-50%}100%{left:150%}}
 @keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(0,170,255,.5)}50%{box-shadow:0 0 0 8px rgba(0,170,255,0)}}
+@keyframes profileGlow{0%,100%{box-shadow:0 0 20px rgba(0,170,255,.3),0 0 60px rgba(0,170,255,.1)}50%{box-shadow:0 0 35px rgba(0,170,255,.5),0 0 80px rgba(0,170,255,.2)}}
+@keyframes ringPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.5);opacity:0}}
 
 /* ===== HEADER ===== */
 .header{
@@ -98,8 +102,17 @@ body::before{
 }
 .menu a:hover{color:#fff;background:rgba(0,170,255,.08)}
 .menu a:hover::before{width:80%}
-.menu a.menu-hi{color:var(--blue-hi);border:1px solid rgba(0,170,255,.35)}
-.menu a.menu-hi:hover{background:rgba(0,170,255,.15);border-color:var(--blue);box-shadow:0 0 18px rgba(0,170,255,.25)}
+.menu a.menu-tg{
+  color:#fff;
+  background:linear-gradient(135deg,var(--tg),var(--tg-dark));
+  border:1px solid rgba(41,182,246,.4);
+  box-shadow:0 2px 12px rgba(41,182,246,.25);
+}
+.menu a.menu-tg:hover{
+  box-shadow:0 4px 25px rgba(41,182,246,.45);
+  transform:translateY(-1px);
+  background:linear-gradient(135deg,var(--tg-dark),#0277bd);
+}
 
 /* ===== HAMBURGER ===== */
 .hamburger{
@@ -119,7 +132,6 @@ body::before{
 }
 .mob-menu.active{display:flex}
 
-/* Tombol X close di mobile menu */
 .mob-close{
   position:absolute;top:20px;right:24px;
   width:48px;height:48px;border-radius:50%;
@@ -143,160 +155,127 @@ body::before{
 }
 .mob-menu a:hover{color:#fff;background:rgba(0,170,255,.1);border:1px solid var(--card-bd)}
 
-/* ===== BANNER ===== */
-.banner-section{position:relative;z-index:1}
-
-.shim-line{
-  height:3px;
-  background:linear-gradient(90deg,
-    transparent 0%,var(--blue) 10%,var(--blue-shim) 25%,#fff 50%,var(--blue-shim) 75%,var(--blue) 90%,transparent 100%);
-  background-size:300% 100%;
-  animation:bShimmer 3s ease infinite;
+/* ===== PROFILE SECTION ===== */
+.profile-section{
+  position:relative;z-index:1;
+  padding:60px 20px 50px;
+  display:flex;flex-direction:column;align-items:center;
+  gap:20px;
+  background:linear-gradient(180deg,rgba(0,15,35,.5) 0%,transparent 100%);
 }
 
-.banner-wrap{
-  position:relative;max-width:1700px;margin:0 auto;
-  background:#000;overflow:hidden;
+.profile-avatar-wrap{
+  position:relative;
+  width:110px;height:110px;
 }
 
-.banner{
-  position:relative;width:100%;height:500px;overflow:hidden;
+.profile-avatar{
+  width:110px;height:110px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#0a1628,#0d2137);
+  border:3px solid var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;
+  animation:profileGlow 3s ease-in-out infinite;
+  overflow:hidden;
 }
 
-.slides-box{position:relative;width:100%;height:100%;overflow:hidden}
-
-.slides{
-  display:flex;height:100%;
-  transition:transform .8s cubic-bezier(.65,0,.35,1);
+.profile-avatar svg{
+  width:60px;height:60px;
+  filter:drop-shadow(0 0 8px rgba(0,170,255,.5));
 }
 
-.slide{
-  min-width:100%;height:100%;position:relative;
+.profile-ring{
+  position:absolute;inset:-8px;
+  border-radius:50%;
+  border:2px solid rgba(0,170,255,.3);
+  z-index:1;
+  animation:ringPulse 2.5s ease-out infinite;
 }
 
-/* GAMBAR BANNER — CERAH JELAS, TANPA OVERLAY GELAP */
-.slide img{
-  width:100%;height:100%;
-  object-fit:cover;display:block;
-  filter:brightness(1.1) contrast(1.08) saturate(1.15);
+.profile-ring-2{
+  position:absolute;inset:-16px;
+  border-radius:50%;
+  border:1px solid rgba(0,170,255,.15);
+  z-index:1;
+  animation:ringPulse 2.5s ease-out infinite .8s;
 }
 
-/* Gradient cuma 50px di bawah untuk transisi halus ke background */
-.slide::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;
-  height:50px;
-  background:linear-gradient(to top,rgba(1,10,20,.6),transparent);
-  pointer-events:none;
-}
-
-/* Shimmer sweep — sangat tipis */
-.slides-box::after{
-  content:'';position:absolute;top:0;left:-50%;
-  width:35%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(170,238,255,.02),rgba(255,255,255,.04),rgba(170,238,255,.02),transparent);
-  z-index:3;
-  animation:shineSweep 5s ease-in-out infinite;
-  pointer-events:none;
-}
-
-/* Vignette tipis di kiri kanan saja */
-.banner::before{
-  content:'';position:absolute;inset:0;
-  background:
-    linear-gradient(to right,rgba(1,10,20,.2) 0%,transparent 5%),
-    linear-gradient(to left,rgba(1,10,20,.2) 0%,transparent 5%);
-  z-index:2;pointer-events:none;
-}
-
-/* Teks banner — posisi aman tidak menutupi gambar */
-.b-text{
-  position:absolute;bottom:28px;left:36px;
-  z-index:5;pointer-events:none;
-}
-
-.b-text h2{
+.profile-name{
   font-family:'Orbitron',sans-serif;
-  font-size:32px;font-weight:900;letter-spacing:3px;
-  margin-bottom:4px;
-}
-
-.b-text h2 span{
-  background:linear-gradient(90deg,#fff 0%,var(--blue-shim) 25%,#fff 50%,var(--blue-shim) 75%,#fff 100%);
+  font-size:28px;font-weight:900;letter-spacing:4px;
+  background:linear-gradient(90deg,var(--blue-pale),var(--blue-shim),#fff,var(--blue-shim),var(--blue-pale));
   background-size:200% auto;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;
   animation:shimmer 3s linear infinite;
-  filter:drop-shadow(0 2px 10px rgba(0,0,0,.95)) drop-shadow(0 0 25px rgba(0,170,255,.5));
+  text-align:center;
 }
 
-.b-text p{
-  font-size:17px;font-weight:600;color:var(--blue-pale);
-  letter-spacing:2px;
-  text-shadow:0 1px 8px rgba(0,0,0,.95),0 0 20px rgba(0,170,255,.4);
+.profile-desc{
+  font-size:15px;color:var(--muted);letter-spacing:2px;
+  text-transform:uppercase;text-align:center;
+  max-width:400px;
 }
 
-/* Arrows — z-index tinggi agar tidak tertutup */
-.b-arr{
-  position:absolute;top:50%;transform:translateY(-50%);
-  z-index:20;width:56px;height:56px;border-radius:50%;
-  background:rgba(0,20,50,.65);
-  border:2px solid rgba(0,170,255,.45);
-  color:var(--blue-shim);font-size:20px;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:all .3s ease;backdrop-filter:blur(8px);
+.profile-btns{
+  display:flex;gap:14px;align-items:center;justify-content:center;
+  flex-wrap:wrap;
+  margin-top:4px;
 }
-.b-arr:hover{
-  background:rgba(0,170,255,.3);border-color:var(--blue-hi);
-  box-shadow:0 0 35px rgba(0,170,255,.5),inset 0 0 20px rgba(0,170,255,.15);
-  transform:translateY(-50%) scale(1.12);color:#fff;
-}
-.b-arr.l{left:20px}
-.b-arr.r{right:20px}
 
-/* Dots — z-index tinggi */
-.b-dots{
-  position:absolute;bottom:24px;right:36px;
-  display:flex;gap:14px;z-index:20;align-items:center;
+.btn-contact{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 32px;border-radius:14px;
+  text-decoration:none;font-family:'Rajdhani',sans-serif;
+  font-size:16px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;cursor:pointer;
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+  border:none;position:relative;overflow:hidden;
 }
-.b-dots span{
-  width:14px;height:14px;border-radius:50%;
-  background:rgba(255,255,255,.2);
-  border:2px solid rgba(0,170,255,.45);
-  cursor:pointer;transition:all .4s ease;
+
+.btn-contact::after{
+  content:'';position:absolute;top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
+  transition:left .5s ease;
 }
-.b-dots span.on{
-  background:var(--blue);border-color:var(--blue-glow);
-  box-shadow:0 0 18px rgba(0,170,255,.7),0 0 6px rgba(0,170,255,1);
-  transform:scale(1.3);
+.btn-contact:hover::after{left:100%}
+
+.btn-tg{
+  background:linear-gradient(135deg,var(--tg),var(--tg-dark));
+  color:#fff;
+  box-shadow:0 4px 20px rgba(41,182,246,.3),0 0 40px rgba(41,182,246,.08);
+}
+.btn-tg:hover{
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:0 8px 35px rgba(41,182,246,.45),0 0 60px rgba(41,182,246,.12);
+}
+.btn-tg i{font-size:20px}
+
+.btn-wa{
+  background:linear-gradient(135deg,var(--wa),var(--wa-dark));
+  color:#fff;
+  box-shadow:0 4px 20px rgba(37,211,102,.25),0 0 40px rgba(37,211,102,.06);
+}
+.btn-wa:hover{
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:0 8px 35px rgba(37,211,102,.4),0 0 60px rgba(37,211,102,.1);
+}
+.btn-wa i{font-size:20px}
+
+.profile-status{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--blue-pale);
+  letter-spacing:1.5px;text-transform:uppercase;
+  margin-top:2px;
+}
+.status-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:#00e676;
+  box-shadow:0 0 8px rgba(0,230,118,.6);
   animation:dotPulse 2s ease infinite;
 }
-.b-dots span:hover:not(.on){background:rgba(0,170,255,.4);border-color:rgba(0,170,255,.6)}
-
-/* Counter — z-index tinggi */
-.b-counter{
-  position:absolute;top:18px;right:36px;z-index:20;
-  font-family:'Orbitron',sans-serif;font-size:13px;font-weight:600;
-  color:rgba(255,255,255,.5);letter-spacing:3px;
-  background:rgba(0,15,35,.55);padding:6px 16px;border-radius:20px;
-  border:1px solid rgba(0,170,255,.2);backdrop-filter:blur(8px);
-}
-.b-counter .cur{color:var(--blue-glow);font-size:16px;text-shadow:0 0 12px rgba(85,204,255,.5)}
-
-/* Corner deco */
-.b-corn{position:absolute;width:40px;height:40px;z-index:6;pointer-events:none}
-.b-corn::before,.b-corn::after{content:'';position:absolute;background:var(--blue);opacity:.35}
-.b-corn.tl{top:12px;left:12px}
-.b-corn.tl::before{top:0;left:0;width:20px;height:2px}
-.b-corn.tl::after{top:0;left:0;width:2px;height:20px}
-.b-corn.tr{top:12px;right:12px}
-.b-corn.tr::before{top:0;right:0;width:20px;height:2px}
-.b-corn.tr::after{top:0;right:0;width:2px;height:20px}
-.b-corn.bl{bottom:12px;left:12px}
-.b-corn.bl::before{bottom:0;left:0;width:20px;height:2px}
-.b-corn.bl::after{bottom:0;left:0;width:2px;height:20px}
-.b-corn.br{bottom:12px;right:12px}
-.b-corn.br::before{bottom:0;right:0;width:20px;height:2px}
-.b-corn.br::after{bottom:0;right:0;width:2px;height:20px}
 
 /* ===== SECTION TITLE ===== */
 .sec-title{
@@ -473,10 +452,7 @@ body::before{
 /* ===== RESPONSIVE ===== */
 @media(max-width:1024px){
   .grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
-  .banner{height:400px}
   .card-img{height:220px}
-  .b-text h2{font-size:24px}
-  .b-text p{font-size:14px}
 }
 
 @media(max-width:768px){
@@ -489,19 +465,14 @@ body::before{
   .logo-icon svg{width:32px;height:32px}
   .logo-icon{width:32px;height:32px}
 
-  .banner{height:240px}
-  .slide img{filter:brightness(1.15) contrast(1.05) saturate(1.1)}
-  .b-arr{width:40px;height:40px;font-size:14px}
-  .b-arr.l{left:10px}
-  .b-arr.r{right:10px}
-  .b-text{left:16px;bottom:16px}
-  .b-text h2{font-size:16px;letter-spacing:1.5px}
-  .b-text p{font-size:11px;letter-spacing:1px}
-  .b-dots{right:14px;bottom:14px;gap:10px}
-  .b-dots span{width:10px;height:10px}
-  .b-counter{top:10px;right:14px;font-size:11px;padding:4px 12px}
-  .b-counter .cur{font-size:13px}
-  .b-corn{display:none}
+  .profile-section{padding:40px 16px 32px;gap:14px}
+  .profile-avatar-wrap{width:90px;height:90px}
+  .profile-avatar{width:90px;height:90px}
+  .profile-avatar svg{width:48px;height:48px}
+  .profile-name{font-size:18px;letter-spacing:2px}
+  .profile-desc{font-size:12px;letter-spacing:1.5px}
+  .btn-contact{padding:12px 24px;font-size:14px;border-radius:12px}
+  .btn-contact i{font-size:17px}
 
   .container{width:94%;padding:24px 0 40px}
   .sec-title h2{font-size:17px}
@@ -521,6 +492,13 @@ body::before{
 }
 
 @media(max-width:420px){
+  .profile-avatar-wrap{width:76px;height:76px}
+  .profile-avatar{width:76px;height:76px}
+  .profile-avatar svg{width:40px;height:40px}
+  .profile-name{font-size:15px;letter-spacing:1.5px}
+  .profile-desc{font-size:11px}
+  .profile-btns{gap:10px}
+  .btn-contact{padding:10px 18px;font-size:12px;letter-spacing:1px}
   .grid{gap:10px}
   .card-img{height:140px}
   .info h3{font-size:11px}
@@ -528,10 +506,6 @@ body::before{
   .btn-row .btn{font-size:10px;padding:7px 3px}
   .logo-text{font-size:13px}
   .logo-sub{display:none}
-  .banner{height:190px}
-  .b-text h2{font-size:13px}
-  .b-text p{display:none}
-  .b-counter{display:none}
 }
 
 .card:nth-child(1){animation-delay:.05s}
@@ -578,65 +552,67 @@ body::before{
       <svg viewBox="0 0 42 42" fill="none"><path d="M8 6L4 21L8 36H12L16 21L12 6H8Z" fill="url(#g1)" opacity=".9"/><path d="M14 6L10 21L14 36H18L22 21L18 6H14Z" fill="url(#g1)" opacity=".7"/><path d="M20 4L16 21L20 38H24L28 21L24 4H20Z" fill="url(#g2)"/><path d="M26 6L22 21L26 36H30L34 21L30 6H26Z" fill="url(#g1)" opacity=".7"/><path d="M32 6L28 21L32 36H36L40 21L36 6H32Z" fill="url(#g1)" opacity=".9"/><line x1="4" y1="21" x2="40" y2="21" stroke="#44ccff" stroke-width="1" opacity=".5"/><defs><linearGradient id="g1" x1="4" y1="6" x2="40" y2="36"><stop stop-color="#00aaff"/><stop offset="1" stop-color="#00d4ff"/></linearGradient><linearGradient id="g2" x1="16" y1="4" x2="28" y2="38"><stop stop-color="#44ccff"/><stop offset=".5" stop-color="#aaeeff"/><stop offset="1" stop-color="#44ccff"/></linearGradient></defs></svg>
     </div>
     <div>
-      <div class="logo-text">RAZOR GAMING DEV</div>
+      <div class="logo-text">RAZOR GAMING</div>
       <div class="logo-sub">Jasa Pembuatan Web Slot</div>
     </div>
   </a>
 
-  <!-- Desktop Menu -->
   <nav class="menu">
     <a href="#">Home</a>
     <a href="#produk">Produk</a>
-    <a href="https://wa.me/447544506270" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-    <a href="https://t.me/razorgamingwebdev" target="_blank" class="menu-hi"><i class="fab fa-telegram-plane"></i> Telegram</a>
+    <a href="https://t.me/jasapembuatanwebslot" target="_blank" class="menu-tg"><i class="fab fa-telegram-plane"></i> Telegram</a>
   </nav>
 
-  <!-- Hamburger Button -->
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </header>
 
-<!-- Mobile Menu — ada tombol X sendiri -->
+<!-- Mobile Menu -->
 <div class="mob-menu" id="mobMenu">
   <button class="mob-close" id="mobClose" aria-label="Tutup menu">
     <i class="fas fa-times"></i>
   </button>
   <a href="#" class="mob-link">Home</a>
   <a href="#produk" class="mob-link">Produk</a>
-  <a href="https://wa.me/447544506270" target="_blank" class="mob-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-  <a href="https://t.me/razorgamingwebdev" target="_blank" class="mob-link"><i class="fab fa-telegram-plane"></i> Telegram</a>
+  <a href="https://t.me/jasapembuatanwebslot" target="_blank" class="mob-link"><i class="fab fa-telegram-plane"></i> Telegram</a>
 </div>
 
-<!-- BANNER -->
-<section class="banner-section">
-  <div class="shim-line"></div>
-  <div class="banner-wrap">
-    <div class="banner" id="bannerEl">
-      <div class="slides-box">
-        <div class="slides" id="slides">
-          <div class="slide"><img src="https://dash.takenupload.org/6a0464b076eb3" alt="Banner 1"></div>
-          <div class="slide"><img src="https://dash.takenupload.org/69fad48a3f8c6" alt="Banner 2"></div>
-          <div class="slide"><img src="https://dash.takenupload.org/6a0464c162d39" alt="Banner 3"></div>
-        </div>
-      </div>
-      <div class="b-text">
-        <h2><span>RAZOR GAMING DEV</span></h2>
-        <p>Jasa Pembuatan Web Slot & Gambling Terbaik</p>
-      </div>
-      <div class="b-counter"><span class="cur" id="cntCur">01</span> / 03</div>
-      <button class="b-arr l" id="arrL" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-      <button class="b-arr r" id="arrR" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
-      <div class="b-dots" id="bDots">
-        <span class="on" data-i="0"></span>
-        <span data-i="1"></span>
-        <span data-i="2"></span>
-      </div>
-      <div class="b-corn tl"></div><div class="b-corn tr"></div>
-      <div class="b-corn bl"></div><div class="b-corn br"></div>
+<!-- PROFILE SECTION -->
+<section class="profile-section">
+  <div class="profile-avatar-wrap">
+    <div class="profile-ring"></div>
+    <div class="profile-ring-2"></div>
+    <div class="profile-avatar">
+      <svg viewBox="0 0 60 60" fill="none">
+        <path d="M10 8L5 30L10 52H15L20 30L15 8H10Z" fill="url(#pg1)" opacity=".85"/>
+        <path d="M18 8L13 30L18 52H23L28 30L23 8H18Z" fill="url(#pg1)" opacity=".65"/>
+        <path d="M26 5L21 30L26 55H32L37 30L32 5H26Z" fill="url(#pg2)"/>
+        <path d="M34 8L29 30L34 52H39L44 30L39 8H34Z" fill="url(#pg1)" opacity=".65"/>
+        <path d="M42 8L37 30L42 52H47L52 30L47 8H42Z" fill="url(#pg1)" opacity=".85"/>
+        <line x1="5" y1="30" x2="52" y2="30" stroke="#44ccff" stroke-width="1.2" opacity=".6"/>
+        <circle cx="30" cy="30" r="3" fill="#aaeeff" opacity=".8"/>
+        <defs>
+          <linearGradient id="pg1" x1="5" y1="8" x2="52" y2="52"><stop stop-color="#00aaff"/><stop offset="1" stop-color="#00d4ff"/></linearGradient>
+          <linearGradient id="pg2" x1="21" y1="5" x2="37" y2="55"><stop stop-color="#44ccff"/><stop offset=".5" stop-color="#aaeeff"/><stop offset="1" stop-color="#44ccff"/></linearGradient>
+        </defs>
+      </svg>
     </div>
   </div>
-  <div class="shim-line"></div>
+  <div class="profile-name">RAZOR GAMING</div>
+  <div class="profile-desc">Jasa Pembuatan Web Slot & Gambling Terbaik</div>
+  <div class="profile-status">
+    <span class="status-dot"></span>
+    Online — Ready Order
+  </div>
+  <div class="profile-btns">
+    <a href="https://t.me/jasapembuatanwebslot" target="_blank" class="btn-contact btn-tg">
+      <i class="fab fa-telegram-plane"></i> Telegram
+    </a>
+    <a href="https://wa.me/447544506270" target="_blank" class="btn-contact btn-wa">
+      <i class="fab fa-whatsapp"></i> WhatsApp
+    </a>
+  </div>
 </section>
 
 <!-- KONTEN -->
@@ -703,13 +679,13 @@ body::before{
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-logo">RAZOR GAMING DEV</div>
+  <div class="footer-logo">RAZOR GAMING</div>
   <div class="footer-text">Jasa Pembuatan Web Slot & Gambling Terbaik</div>
   <div class="footer-socials">
     <a href="https://wa.me/447544506270" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://t.me/razorgamingwebdev" target="_blank" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+    <a href="https://t.me/jasapembuatanwebslot" target="_blank" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
   </div>
-  <div class="footer-text" style="margin-top:16px;font-size:12px;opacity:.5">&copy; 2025 Razor Gaming Dev. All rights reserved.</div>
+  <div class="footer-text" style="margin-top:16px;font-size:12px;opacity:.5">&copy; 2025 Razor Gaming. All rights reserved.</div>
 </footer>
 
 <!-- POPUP -->
@@ -736,88 +712,21 @@ document.addEventListener('keydown', function(e){
   if(e.key === 'Escape'){ tutupGambar(); closeMob(); }
 });
 
-/* ===== BANNER SLIDER ===== */
-var si = 0, total = 3;
-var sl = document.getElementById('slides');
-var dots = document.querySelectorAll('#bDots span');
-var cntEl = document.getElementById('cntCur');
-var autoTimer;
-
-function updSlide(){
-  sl.style.transform = 'translateX(-' + (si * 100) + '%)';
-  for(var i = 0; i < dots.length; i++){
-    if(i === si) dots[i].classList.add('on');
-    else dots[i].classList.remove('on');
-  }
-  cntEl.textContent = String(si + 1).padStart(2, '0');
-}
-
-function nxtSlide(){ si = (si + 1) % total; updSlide(); }
-
-function chSlide(d){
-  si = (si + d + total) % total;
-  updSlide();
-  resetAuto();
-}
-
-function goSlide(i){
-  si = i;
-  updSlide();
-  resetAuto();
-}
-
-function resetAuto(){
-  clearInterval(autoTimer);
-  autoTimer = setInterval(nxtSlide, 4500);
-}
-
-autoTimer = setInterval(nxtSlide, 4500);
-
-/* Arrow pakai addEventListener — pasti kebaca */
-document.getElementById('arrL').addEventListener('click', function(){ chSlide(-1); });
-document.getElementById('arrR').addEventListener('click', function(){ chSlide(1); });
-
-/* Dots pakai event delegation */
-document.getElementById('bDots').addEventListener('click', function(e){
-  if(e.target.tagName === 'SPAN'){
-    var idx = parseInt(e.target.getAttribute('data-i'));
-    if(!isNaN(idx)) goSlide(idx);
-  }
-});
-
-/* Touch swipe */
-var tx = 0;
-var bannerEl = document.getElementById('bannerEl');
-bannerEl.addEventListener('touchstart', function(e){
-  tx = e.changedTouches[0].screenX;
-}, {passive: true});
-bannerEl.addEventListener('touchend', function(e){
-  var d = tx - e.changedTouches[0].screenX;
-  if(Math.abs(d) > 50) chSlide(d > 0 ? 1 : -1);
-}, {passive: true});
-
-/* Pause auto saat hover */
-bannerEl.addEventListener('mouseenter', function(){ clearInterval(autoTimer); });
-bannerEl.addEventListener('mouseleave', function(){ autoTimer = setInterval(nxtSlide, 4500); });
-
 /* ===== HAMBURGER MENU ===== */
 var hamburger = document.getElementById('hamburger');
 var mobMenu = document.getElementById('mobMenu');
 var mobClose = document.getElementById('mobClose');
 
-/* Buka menu */
 hamburger.addEventListener('click', function(){
   mobMenu.classList.add('active');
   hamburger.classList.add('active');
   document.body.style.overflow = 'hidden';
 });
 
-/* Tombol X close — ini yang tadi bug */
 mobClose.addEventListener('click', function(){
   closeMob();
 });
 
-/* Klik link di mobile menu — tutup menu */
 var mobLinks = document.querySelectorAll('.mob-link');
 for(var i = 0; i < mobLinks.length; i++){
   mobLinks[i].addEventListener('click', function(){
@@ -825,7 +734,6 @@ for(var i = 0; i < mobLinks.length; i++){
   });
 }
 
-/* Klik area kosong di mobile menu — tutup */
 mobMenu.addEventListener('click', function(e){
   if(e.target === mobMenu) closeMob();
 });
